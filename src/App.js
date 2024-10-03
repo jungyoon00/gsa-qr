@@ -26,7 +26,7 @@ function App() {
 
   return (
   <>
-    {!isLoggedIn && <Main />}
+    {!isLoggedIn && <Login />}
     {isLoggedIn && <Main />}
   </>
   );
