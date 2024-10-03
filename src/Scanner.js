@@ -6,26 +6,32 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import useZustandAuthStore from "./store/zustandAuthStore";
 
 function PushData(text) {
+  const pushState = false;
   const currentDate = new Date();
-  const formattedTime = `${currentDate.getHours()}:${currentDate.getMinutes}:${currentDate.getSeconds}`;
+  const formattedTime = `${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
 
   const validID = "12345678";
 
-  const username = useZustandAuthStore((state) => state.username);
-  const email = useZustandAuthStore((state) => state.email);
+  // testing environment.
+  //const username = useZustandAuthStore((state) => state.username);
+  //const email = useZustandAuthStore((state) => state.email);
+
+  const username = "2514정윤";
+  const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
 
   const checkUser = async (email) => {
       const userRef = doc(database, "Users", email);
       const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) return false;
-      return true;
+      if (userSnap.exists() !== true) {
+        setDoc(doc(database, "Users", email), data);
+      }
   }
 
-  const setData = async (email) => {
+  const setData = (email) => {
       if (text === validID) {
-          if (checkUser(email)) await setDoc(doc(database, "Users", email), data);
+        checkUser(email);
       }
   }
 
@@ -54,6 +60,7 @@ useEffect(() => {
    Stop();
  }
 }, []);
+
 useEffect(() => {
  if (!Camera.current)
    return;
@@ -64,6 +71,7 @@ useEffect(() => {
    Stop();
  }
 }, [localStream]);
+
 const req = useRef();
 const Scanning = async () => {
  // const t = await Scan.decodeOnce();
@@ -82,8 +90,8 @@ const Scanning = async () => {
      console.log(error);
    }
  }
-
 }
+
 const Stop = () => {
  if (localStream) {
    const vidTrack = localStream.getVideoTracks();
@@ -92,10 +100,12 @@ const Stop = () => {
    });
  }
 }
-const [text, setText] = useState('')
+
+const [text, setText] = useState('');
 useEffect(() => {
   PushData(text);
 }, [text]);
+
 return (
  <div>
    <video
