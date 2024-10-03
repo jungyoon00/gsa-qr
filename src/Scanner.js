@@ -4,40 +4,42 @@ import { BrowserMultiFormatReader, BarcodeFormat, DecodeHintType } from '@zxing/
 import { database } from "./fbInstance";
 import { setDoc, doc, getDoc } from "firebase/firestore";
 import useZustandAuthStore from "./store/zustandAuthStore";
+import "./Main.css";
 
-function PushData(text) {
-  const pushState = false;
+async function PushData(text) {
+  let scanState = "";
+  
   const currentDate = new Date();
   const formattedTime = `${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
 
   const validID = "12345678";
 
   // testing environment.
-  //const username = useZustandAuthStore((state) => state.username);
-  //const email = useZustandAuthStore((state) => state.email);
+  const username = useZustandAuthStore((state) => state.username);
+  const email = useZustandAuthStore((state) => state.email);
 
-  const username = "2514정윤";
-  const email = "23083@gsa.hs.kr";
+  //const username = "2514정윤";
+  //const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
 
-  const checkUser = async (email) => {
-      const userRef = doc(database, "Users", email);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists() !== true) {
-        setDoc(doc(database, "Users", email), data);
+  if (text === validID) {
+    const userRef = doc(database, "Users", email);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.exists() !== true) {
+      if (formattedTime > "15:30:00") {
+        scanState = "지정 시간보다 늦게 출입";
+      } else {
+        scanState = "출입 확인";
       }
+      setDoc(doc(database, "Users", email), data);
+    } else {
+      scanState = "이미 출입한 사용자";
+    }
   }
 
-  const setData = (email) => {
-      if (text === validID) {
-        checkUser(email);
-      }
-  }
-
-  setData(email);
+  if (scanState !== "") alert(scanState);
 }
-
 
 const Reader = () => {
 const [localStream, setLocalStream] = useState();
@@ -102,17 +104,20 @@ const Stop = () => {
 }
 
 const [text, setText] = useState('');
+//const [currentState]
+
+let scanState = "QR코드를 스캔";
 useEffect(() => {
-  PushData(text);
+  scanState = PushData(text);
 }, [text]);
 
 return (
- <div>
+ <div class="video-container">
    <video
      ref={Camera}
      id="video"
    />
-   <span>{text}</span>
+   <span class="video-text">{scanState}</span>
  </div>
 );
 };

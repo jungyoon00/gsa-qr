@@ -1,0 +1,50 @@
+/* 모바일 화면에 최적화된 기본 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* 부모 컨테이너 설정: 화면 중앙 정렬 */
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  /* 버튼 스타일 */
+  .google-login-btn {
+    background-color: #4285F4; /* Google 파란색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  /* 버튼 hover 시 효과 */
+  .google-login-btn:hover {
+    background-color: #357ae8;
+    transform: scale(1.05);
+  }
+  
+  /* 모바일 대응: 작은 화면에서 버튼 크기 조정 */
+  @media (max-width: 600px) {
+    .google-login-btn {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 18px;
+    }
+  }
+  

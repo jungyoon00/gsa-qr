@@ -1,0 +1,99 @@
+/* 전역 스타일 리셋 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+  }
+  
+  /* 모든 요소를 중앙 정렬하기 위한 부모 컨테이너 */
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* 계정 정보 텍스트 스타일 */
+  .account-info {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* 비디오 화면이 모바일 화면에 딱 맞도록 조정 */
+  .video-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  video {
+    width: 100%; /* 비디오를 모바일 화면의 가로에 맞춤 */
+    height: auto; /* 비율에 맞춰 세로 높이 자동 조정 */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 비디오 아래 텍스트 스타일 */
+  .video-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  /* 로그아웃 버튼 스타일 */
+  .logout-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background-color: #4285F4; /* 눈에 띄는 빨간색 */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* 로그아웃 버튼 hover 효과 */
+  .logout-btn:hover {
+    background-color: #357ae8;
+  }
+  
+  /* 작은 화면에서도 적절하게 반응 */
+  @media (max-width: 600px) {
+    .account-info {
+      font-size: 16px;
+    }
+    
+    .video-container {
+      max-width: 100%; /* 모바일 화면에서 가득 차게 */
+    }
+    
+    .video-text {
+      font-size: 14px;
+    }
+    
+    .logout-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 14px;
+    }
+  }
+
+  
