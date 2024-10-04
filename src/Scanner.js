@@ -17,10 +17,13 @@ async function PushData(text, getEmail, getUsername) {
   const username = getUsername;
   const email = getEmail;
 
+  alert(email);
+
   //const username = "2514정윤";
   //const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
+  alert(data);
 
   if (text === validID) {
     const userRef = doc(database, "Users", email);
