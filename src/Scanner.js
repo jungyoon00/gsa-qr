@@ -45,8 +45,8 @@ async function PushData(text, getEmail, getUsername) {
 }
 
 const Reader = props => {
-const email = props.email;
-const username = props.username;
+let email = props.email;
+let username = props.username;
 
 const [localStream, setLocalStream] = useState();
 const Camera = useRef(null);
