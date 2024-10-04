@@ -22,6 +22,7 @@ async function PushData(text) {
   //const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
+  alert(data);
 
   if (text === validID) {
     const userRef = doc(database, "Users", email);
@@ -109,6 +110,7 @@ const [text, setText] = useState('');
 
 let scanState = "QR코드를 스캔";
 useEffect(() => {
+  alert(text);
   PushData(text);
 }, [text]);
 
