@@ -109,7 +109,7 @@ const Stop = () => {
 const [text, setText] = useState('');
 //const [currentState]
 
-let scanState = "QR코드를 스캔";
+let scanState = "카메라가 보이지 않으면 새로고침 해주세요.";
 useEffect(() => {
   PushData(text, email, username);
 }, [text]);
