@@ -108,7 +108,7 @@ const Stop = () => {
 const [text, setText] = useState('');
 //const [currentState]
 
-let scanState = "카메라가 보이지 않으면 새로고침 해주세요.";
+let scanState = "카메라가 보이지 않거나 계정이 보이지 않으면 다시 로그인 해주세요.";
 useEffect(() => {
   PushData(text, email, username);
 }, [text]);
