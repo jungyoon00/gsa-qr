@@ -32,6 +32,7 @@ async function PushData(text) {
       } else {
         scanState = "출입 확인";
       }
+      alert("Scanned");
       setDoc(doc(database, "Users", email), data);
     } else {
       scanState = "이미 출입한 사용자";
