@@ -7,40 +7,42 @@ import useZustandAuthStore from "./store/zustandAuthStore";
 import "./Main.css";
 
 async function PushData(text) {
-  let scanState = "";
   
   const currentDate = new Date();
   const formattedTime = `${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
 
   const validID = "12345678";
+  alert("1")
 
   // testing environment.
   const username = useZustandAuthStore((state) => state.username);
   const email = useZustandAuthStore((state) => state.email);
 
+  alert(username);
+
   //const username = "2514정윤";
   //const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
-  alert(data);
+  alert(formattedTime);
 
   if (text === validID) {
     const userRef = doc(database, "Users", email);
     const userSnap = await getDoc(userRef);
     if (userSnap.exists() !== true) {
       if (formattedTime > "15:30:00") {
-        scanState = "지정 시간보다 늦게 출입";
+        alert("지정 시간보다 늦게 출입");
       } else {
-        scanState = "출입 확인";
+        alert("출입 확인");
       }
       alert("Scanned");
       setDoc(doc(database, "Users", email), data);
     } else {
-      scanState = "이미 출입한 사용자";
+      alert("이미 출입한 사용자");
     }
   }
 
-  if (scanState !== "") alert(scanState);
+  //if (scanState !== "") alert(scanState);
 }
 
 const Reader = () => {
@@ -110,7 +112,6 @@ const [text, setText] = useState('');
 
 let scanState = "QR코드를 스캔";
 useEffect(() => {
-  alert(text);
   PushData(text);
 }, [text]);
 
