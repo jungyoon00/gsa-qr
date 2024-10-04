@@ -6,25 +6,21 @@ import { setDoc, doc, getDoc } from "firebase/firestore";
 import useZustandAuthStore from "./store/zustandAuthStore";
 import "./Main.css";
 
-async function PushData(text) {
+async function PushData(text, getEmail, getUsername) {
   
   const currentDate = new Date();
   const formattedTime = `${String(currentDate.getHours()).padStart(2, "0")}:${String(currentDate.getMinutes()).padStart(2, "0")}:${String(currentDate.getSeconds()).padStart(2, "0")}`;
 
   const validID = "12345678";
-  alert("1")
 
   // testing environment.
-  const username = useZustandAuthStore((state) => state.username);
-  const email = useZustandAuthStore((state) => state.email);
-
-  alert(username);
+  const username = getUsername;
+  const email = getEmail;
 
   //const username = "2514정윤";
   //const email = "23083@gsa.hs.kr";
 
   const data = {"username": username, "entertime": formattedTime}
-  alert(formattedTime);
 
   if (text === validID) {
     const userRef = doc(database, "Users", email);
@@ -45,7 +41,10 @@ async function PushData(text) {
   //if (scanState !== "") alert(scanState);
 }
 
-const Reader = () => {
+const Reader = props => {
+const email = props.email;
+const username = props.username;
+
 const [localStream, setLocalStream] = useState();
 const Camera = useRef(null);
 const hints = new Map();
@@ -112,7 +111,7 @@ const [text, setText] = useState('');
 
 let scanState = "QR코드를 스캔";
 useEffect(() => {
-  PushData(text);
+  PushData(text, email, username);
 }, [text]);
 
 return (

@@ -11,6 +11,7 @@ function Main() {
         // navigate("/");
     }
 
+    const username = useZustandAuthStore((state) => state.username);
     const email = useZustandAuthStore((state) => state.email);
     const photoURL = useZustandAuthStore((state) => state.photoURL);
 
@@ -20,7 +21,7 @@ function Main() {
             {email}
         </div>
         <div>
-            <Scanner />
+            <Scanner email={email} username={username} />
         </div>
         <button type="button" class="logout-btn" onClick={onLogoutClick}>LogOut</button>
         </>
