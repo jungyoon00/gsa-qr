@@ -108,7 +108,7 @@ const [text, setText] = useState('');
 
 let scanState = "QR코드를 스캔";
 useEffect(() => {
-  scanState = PushData(text);
+  PushData(text);
 }, [text]);
 
 return (
